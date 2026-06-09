@@ -48,3 +48,4 @@ Model keys in `llmisvc/values.yaml` (`models:`) must match names referenced in
 
 - `example.cluster.opentlc.com` — full simulated free/premium model set
 - `cluster-6bmxk.6bmxk.sandbox5237.opentlc.com` — llmisvc models; subscriptions use chart defaults
+- `cluster-8h7g4.8h7g4.sandbox966.opentlc.com` — llmisvc models; subscriptions use chart defaults
