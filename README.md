@@ -1,8 +1,6 @@
 # rhoai-workloads
 
-Self-contained GitOps repository for MaaS **application workloads** (Argo CD sync waves 7–8): Helm charts, per-cluster values, and Argo CD Application manifests.
-
-Platform repo ([javo8a/rhoai-platform](https://github.com/javo8a/rhoai-platform)) bootstraps a root `maas-workloads` Application that points here; all workload sync uses **this repo only**.
+Self-contained GitOps repository for MaaS **application workloads**: Helm charts, per-cluster values, and all Argo CD Application manifests (root app + child apps).
 
 ## Layout
 
@@ -12,25 +10,34 @@ rhoai-workloads/
 │   ├── llmisvc/
 │   └── maas-subscriptions/
 ├── clusters/{cluster}/values/
-│   ├── llmisvc/values.yaml
-│   └── maas-subscriptions/values.yaml
+├── applications/clusters/{cluster}/
+│   ├── maas-workloads.yaml              # root app-of-apps (apply to Argo CD)
+│   └── workloads/
+│       ├── llmisvc.yaml
+│       └── maas-subscriptions.yaml
 ├── applications-templates/
-├── applications/clusters/{cluster}/workloads/   # rendered
 └── scripts/render-applications.sh
 ```
 
 ## Render Applications
 
-After editing values for a cluster:
-
 ```bash
 ./scripts/render-applications.sh \
   --cluster example.cluster.opentlc.com \
   --workloads-repo https://github.com/javo8a/rhoai-workloads.git \
-  --workloads-revision main
+  --workloads-revision main \
+  --argocd-namespace openshift-gitops
 ```
 
-Commit the rendered files under `applications/clusters/{cluster}/workloads/`.
+## Bootstrap (after platform sync is healthy)
+
+Apply the root Application to the GitOps namespace:
+
+```bash
+oc apply -f applications/clusters/example.cluster.opentlc.com/maas-workloads.yaml -n openshift-gitops
+```
+
+Or create it in the Argo CD UI from the same manifest. The `maas-workloads` Application syncs `llmisvc` and `maas-subscriptions` child apps from this repo.
 
 ## Model name contract
 

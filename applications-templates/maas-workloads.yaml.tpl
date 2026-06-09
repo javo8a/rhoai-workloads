@@ -1,0 +1,22 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: maas-workloads
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: maas-workloads
+  destination:
+    name: in-cluster
+    namespace: ${ARGOCD_NAMESPACE}
+  source:
+    path: applications/clusters/${ARGO_CLUSTER_DIR}/workloads
+    repoURL: ${ARGO_WORKLOADS_GIT_URL}
+    targetRevision: ${ARGO_WORKLOADS_GIT_REVISION}
+    directory:
+      recurse: false
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
