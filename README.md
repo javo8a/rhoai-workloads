@@ -1,17 +1,36 @@
 # rhoai-workloads
 
-GitOps repository for MaaS **application workloads** (Argo CD sync waves 7–8): `LLMInferenceService` models and MaaS subscriptions/auth policies.
+Self-contained GitOps repository for MaaS **application workloads** (Argo CD sync waves 7–8): Helm charts, per-cluster values, and Argo CD Application manifests.
 
-Charts live in the platform repo ([javo8a/rhoai-platform](https://github.com/javo8a/rhoai-platform)). Workload Argo CD Applications use multi-source sync: chart from platform, values from this repo via `$workloads/...` refs.
+Platform repo ([javo8a/rhoai-platform](https://github.com/javo8a/rhoai-platform)) bootstraps a root `maas-workloads` Application that points here; all workload sync uses **this repo only**.
 
 ## Layout
 
 ```
-clusters/{cluster}/
-└── values/
-    ├── llmisvc/values.yaml
-    └── maas-subscriptions/values.yaml
+rhoai-workloads/
+├── charts/
+│   ├── llmisvc/
+│   └── maas-subscriptions/
+├── clusters/{cluster}/values/
+│   ├── llmisvc/values.yaml
+│   └── maas-subscriptions/values.yaml
+├── applications-templates/
+├── applications/clusters/{cluster}/workloads/   # rendered
+└── scripts/render-applications.sh
 ```
+
+## Render Applications
+
+After editing values for a cluster:
+
+```bash
+./scripts/render-applications.sh \
+  --cluster example.cluster.opentlc.com \
+  --workloads-repo https://github.com/javo8a/rhoai-workloads.git \
+  --workloads-revision main
+```
+
+Commit the rendered files under `applications/clusters/{cluster}/workloads/`.
 
 ## Model name contract
 
