@@ -21,9 +21,9 @@ rhoai-workloads/
 
 ## Testing the Helm Charts for Installing Inference Servers
 
-```bash
-CLUSTER=cluster-hgjr9.hgjr9.sandbox5189.opentlc.com
+Use these helm commands for testing, or even installing an individual model.
 
+```bash
 helm template test charts/llmisvc \
   -f models/gpt-oss-20b-maas.yaml
 
