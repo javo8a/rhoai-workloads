@@ -19,6 +19,12 @@ rhoai-workloads/
 └── scripts/render-applications.sh
 ```
 
+## Testing Helm Charts
+
+```bash
+helm template test charts/llmisvc -f applications/clusters/cluster-hgjr9.hgjr9.sandbox5189.opentlc.com/workloads/llmisvc.yaml -f models/gemma-4-maas.yaml
+```
+
 ## Render Applications
 
 ```bash
