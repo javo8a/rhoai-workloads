@@ -21,7 +21,7 @@ rhoai-workloads/
 
 ## Testing the Helm Charts for Installing Inference Servers
 
-Use these helm commands for testing, or even installing an individual model.
+Use these helm commands for testing, or even installing an individual model during development and testing phase:
 
 ```bash
 helm template test charts/llmisvc \
