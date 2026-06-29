@@ -19,10 +19,17 @@ rhoai-workloads/
 └── scripts/render-applications.sh
 ```
 
-## Testing Helm Charts
+## Testing the Helm Charts for Installing Inference Servers
 
 ```bash
-helm template test charts/llmisvc -f applications/clusters/cluster-hgjr9.hgjr9.sandbox5189.opentlc.com/workloads/llmisvc.yaml -f models/gemma-4-maas.yaml
+CLUSTER=cluster-hgjr9.hgjr9.sandbox5189.opentlc.com
+
+helm template test charts/llmisvc \
+  -f models/gpt-oss-20b-maas.yaml
+
+helm upgrade --install llmisvc-gpt-oss-20b charts/llmisvc \       
+  -n ai-models --set namespace.create=false \
+  -f models/gpt-oss-20b-maas.yaml
 ```
 
 ## Render Applications
