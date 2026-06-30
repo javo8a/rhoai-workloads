@@ -27,11 +27,11 @@ resources:
   limits:
     cpu: "16"
     memory: 128Gi
-    nvidia.com/gpu: "2"
+    nvidia.com/gpu: "1"
   requests:
     cpu: "2"
     memory: 32Gi
-    nvidia.com/gpu: "2"
+    nvidia.com/gpu: "1"
 
 maas:
   enabled: true

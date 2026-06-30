@@ -27,7 +27,7 @@ Use these helm commands for testing, or even installing an individual model duri
 helm template test charts/llmisvc \
   -f models/gpt-oss-20b-maas.yaml
 
-helm upgrade --install llmisvc-gpt-oss-20b charts/llmisvc \       
+helm upgrade --install llmisvc-gpt-oss-20b charts/llmisvc \
   -n ai-models --set namespace.create=false \
   -f models/gpt-oss-20b-maas.yaml
 ```

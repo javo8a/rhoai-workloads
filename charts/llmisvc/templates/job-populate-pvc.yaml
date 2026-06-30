@@ -66,11 +66,11 @@ spec:
           emptyDir: {}
       {{- with $.Values.nodeSelector }}
       nodeSelector:
-        {{- toYaml . | nindent 6 }}
+        {{- toYaml . | nindent 7 }}
       {{- end }}
       {{- with $.Values.tolerations }}
       tolerations:
-        {{- toYaml . | nindent 6 }}
+        {{- toYaml . | nindent 7 }}
       {{- end }}
 {{- end }}
 {{- end }}
